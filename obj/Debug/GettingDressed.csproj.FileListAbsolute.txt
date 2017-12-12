@@ -1,0 +1,6 @@
+C:\Getting Dressed\GettingDressed\bin\Debug\GettingDressed.exe.config
+C:\Getting Dressed\GettingDressed\bin\Debug\GettingDressed.exe
+C:\Getting Dressed\GettingDressed\bin\Debug\GettingDressed.pdb
+C:\Getting Dressed\GettingDressed\obj\Debug\GettingDressed.csprojResolveAssemblyReference.cache
+C:\Getting Dressed\GettingDressed\obj\Debug\GettingDressed.exe
+C:\Getting Dressed\GettingDressed\obj\Debug\GettingDressed.pdb
