@@ -4,187 +4,87 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GettingDressed
+namespace ConsoleApplication1
 {
-    public class Program
+    class Program
     {
         public static void Main(string[] args)
         {
+            Dictionary<string, List<Temperature>> temperatureItems = new Dictionary<string, List<Temperature>>();
 
+            List<Temperature> hotActions = new List<Temperature>()
+            {
+                new Temperature {  ID = "1", Description = "Put on footwear", Response = "sandals"},
+                new Temperature {  ID = "2", Description = "Put on headwear", Response = "sunglasses"},
+                new Temperature {  ID = "3", Description = "Put on socks", Response = "fail"},
+                new Temperature {  ID = "4", Description = "Put on shirt", Response = "shirt"},
+                new Temperature {  ID = "5", Description = "Put on jacket", Response = "fail"},
+                new Temperature {  ID = "6", Description = "Put on pants", Response = "shorts"},
+                new Temperature {  ID = "7", Description = "Leave house", Response = "leaving house"},
+                new Temperature {  ID = "8", Description = "Take off pajamas", Response = "Removing PJs"}
+            };
+
+            List<Temperature> coldActions = new List<Temperature>()
+            {
+                new Temperature {  ID = "1", Description = "Put on footwear", Response = "boots"},
+                new Temperature {  ID = "2", Description = "Put on headwear", Response = "hat"},
+                new Temperature {  ID = "3", Description = "Put on socks", Response = "socks"},
+                new Temperature {  ID = "4", Description = "Put on shirt", Response = "shirt"},
+                new Temperature {  ID = "5", Description = "Put on jacket", Response = "jacket"},
+                new Temperature {  ID = "6", Description = "Put on pants", Response = "pants"},
+                new Temperature {  ID = "7", Description = "Leave house", Response = "leaving house"},
+                new Temperature {  ID = "8", Description = "Take off pajamas", Response = "Removing PJs"}
+            };
+
+            temperatureItems.Add("HOT", hotActions);
+            temperatureItems.Add("COLD", coldActions);
+
+            List<Temperature> lstRes = new List<Temperature>();
+        Question1:
             Console.WriteLine("Temperature Type: (HOT or COLD)");
 
             string strWeather = Console.ReadLine();
 
-            if (strWeather.ToUpper() != "HOT" && strWeather.ToUpper() != "COLD")
-                return;
-
-            int intCount = 0;
-            string strOutPut = string.Empty;
-
-            Console.Clear();
-
-            displayMenu();
-
-            string strHistory = string.Empty;
-
-            for (int i = 0; i < 8; i++)
+            if (String.IsNullOrEmpty(strWeather.Trim()))
             {
-                int intUserInput = Convert.ToInt32(Console.ReadLine());
-                intCount++;
-
-                
-                if (intCount == 1 && intUserInput != 8)
-                {
-                    Console.WriteLine("Fail");
-                    strOutPut = string.Empty;
-                    break;
-                }
-                else if (intCount != 1 && strHistory.Contains(intUserInput.ToString()))
-                {
-                    Console.WriteLine("Only one peace of each type of clothing may be put on");
-                    intUserInput = 0;
-                }
-                else if (strWeather.ToUpper() == "HOT" && intUserInput == 3)
-                {
-                    Console.WriteLine("You cannot put on socks when it is hot");
-                    intUserInput = 0;
-                }
-                else if (strWeather.ToUpper() == "HOT" && intUserInput == 5)
-                {
-                    Console.WriteLine("You cannot put on jacket when it is hot");
-                    intUserInput = 0;
-                }
-                else if (strWeather.ToUpper() != "HOT" && intUserInput == 1 && strHistory.Contains("3") == false)
-                {
-                    Console.WriteLine("You cannot put footwear before socks");
-                    intUserInput = 0;
-                }
-                else if (intUserInput == 1 && strHistory.Contains("6") == false)
-                {
-                    Console.WriteLine("You cannot put footwear before pants");
-                    intUserInput = 0;
-                }
-                else if ((intUserInput == 2 || intUserInput == 5) && strHistory.Contains("4") == false )
-                {
-                    Console.WriteLine("Shirt must me put on before headwear or jacket");
-                    intUserInput = 0;
-                }
-                else if (intUserInput == 7 )
-                {
-
-                    if (strWeather.ToUpper() == "HOT" && (strHistory.Contains("1") == false || strHistory.Contains("2") == false || strHistory.Contains("4") == false || strHistory.Contains("6") == false))
-                    {
-                        Console.WriteLine("You cannot leave the house until all items of clothing are on");
-                        intUserInput = 0;
-                    }
-                    else if (strWeather.ToUpper() == "COLD" && (strHistory.Contains("1") == false || strHistory.Contains("2") == false || strHistory.Contains("3") == false || strHistory.Contains("4") == false || strHistory.Contains("5") == false || strHistory.Contains("6") == false))
-                    {
-                        Console.WriteLine("You cannot leave the house until all items of clothing are on");
-                        intUserInput = 0;
-                    }
-
-                   
-                }
-                else if (intUserInput > 8)
-                {
-
-                    Console.WriteLine("Fail");
-                    break;
-                }
-
-                switch (intUserInput)
-                {
-                    case 1:
-                        {
-                            if (strWeather.ToUpper() == "HOT")
-                                strOutPut += "sandals, ";
-                            else
-                                strOutPut += "boots, ";
-                            break;
-                        }
-                    case 2:
-                        {
-                            if (strWeather.ToUpper() == "HOT")
-                                strOutPut += "sunglasses, ";
-                            else
-                                strOutPut += "hat, ";
-                            break;
-                        }
-                    case 3:
-                        {
-                            if (strWeather.ToUpper() == "COLD")
-                                strOutPut += "socks, ";
-                            break;
-                        }
-                    case 4:
-                        {
-
-                            strOutPut += "shirt, ";
-                            break;
-                        }
-                    case 5:
-                        {
-                            if (strWeather.ToUpper() == "COLD")
-                                strOutPut += "jacket, ";
-                            break;
-                        }
-                    case 6:
-                        {
-                            if (strWeather.ToUpper() == "HOT")
-                                strOutPut += "shorts, ";
-                            else
-                                strOutPut += "pants, ";
-                            break;
-                        }
-                    case 7:
-                        {
-
-                            strOutPut += "leaving house, ";
-                            break;
-                        }
-                    case 8:
-                        {
-                            strOutPut += "Removing PJs, ";
-                            break;
-                        }
-                    case 0:
-                        {
-
-                            strOutPut += "Fail, ";
-                            break;
-                        }
-
-                }
-
-                strHistory = strHistory + intUserInput.ToString();
-
-                if (intUserInput == 0 || intUserInput == 7)
-                    break;
+                Console.WriteLine("Please enter temperature type");
+                goto Question1;
             }
+            else if(!strWeather.Trim().ToLower().Contains("cold") && !strWeather.Trim().ToLower().Contains("hot"))
+            {
+                Console.WriteLine("Please enter temperature type");
+                goto Question1;
+            }
+            else
+            {
+                string commands = string.Empty;
+                
+               lstRes = temperatureItems["" + strWeather.Split(' ')[0].Trim() + ""];
+                commands = strWeather.Split(' ')[1].Trim();
 
-            if (strOutPut != "")
-                strOutPut = strOutPut.Substring(0, strOutPut.Length - 2);
+                string[] validNames = commands.Split(',');
 
-            Console.WriteLine(strOutPut);
+               var orderedData = lstRes.Where(c => validNames.Contains(c.ID)).OrderBy(item => validNames.ToList().IndexOf(item.ID.ToString()));
 
+                var resultArray = string.Join(",", orderedData.Select(x=>x.Response).ToList());
 
-            
-            Console.Read();
-        }
+                var numberOfCommandsWithDuplicates = validNames.GroupBy(x => x.ToString()).Count(x => x.Count() > 1);
 
+                StringBuilder sb = new StringBuilder();
+                sb.Append(resultArray.ToString());
+                int failedCount = validNames.Length - resultArray.Split(',').Length;
+                if (failedCount > 0)
+                {
+                    for(int i=0; i < failedCount; i++)
+                    {
+                        sb.Append(", fail");
+                    }
+                }
 
-        public static void displayMenu()
-        {
-            Console.WriteLine("------------------------Welcome to Getting Dressed-----------------------");
-            Console.WriteLine("1. Put on footwear");
-            Console.WriteLine("2. Put on headwear");
-            Console.WriteLine("3. Put on socks");
-            Console.WriteLine("4. Put on shirt");
-            Console.WriteLine("5. Put on jacket");
-            Console.WriteLine("6. Put on pants");
-            Console.WriteLine("7. Leave house");
-            Console.WriteLine("8. Take off Pajamas");
+                Console.WriteLine(sb.ToString());
 
+                Console.ReadLine();
+            }
         }
     }
 }
